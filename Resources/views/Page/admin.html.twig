@@ -1,0 +1,121 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Админ-панель{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Symblog меню</h1>
+        
+       
+    </header>
+
+    
+
+    <form action="{{ path('BloggerBlogBundle_admin') }}" id="adminform"  method="post" {{ form_enctype(form) }} class="blogger">
+        {{ form_errors(form) }}
+
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Сыылка</th>
+                    <th>Активен</th>
+                    <th>Позиция</th>
+                    <th></th>
+                </tr>
+                
+            </thead>
+            
+            <tbody>
+                
+                {% for menu in menus %}
+                                       
+                   {% if menu.acvtive == 1 %}
+                      {% set acvtive = "Да" %}
+                      {% set ch = "checked='checked'" %}
+                       {%else%}
+                       {% set acvtive = "Нет" %}
+                        {% set ch = "" %}
+                   {%endif%}
+                   
+                    {% if menu.position == 'l' %}
+                      {% set position = "Вертикально" %}
+                      {% set sel = "selected='selected'" %}
+                       {%else%}
+                       {% set position = "Горизонтально" %}
+                       {% set sel = "" %}
+                   {%endif%}
+                   
+                                    <tr id="{{menu.id}}" class="menuTr">
+                                        <td>{{menu.id}}</td>
+                                        <td><span id="{{menu.id}}" name="name" class="title">{{menu.name}}</span><span id="{{menu.id}}" name="name" class="value"><input type="text" style="width: 100%;display:none;" value="{{menu.name}}" class="inpc" id="{{menu.id}}" name="name"></span></td>
+                                        <td><span id="{{menu.id}}" name="href" class="title">{{menu.href}}</span><span id="{{menu.id}}" name="href" class="value"><input type="text" style="width: 100%;display:none;" value="{{menu.href}}" class="inpc" id="{{menu.id}}" name="href"></span></td>
+                                       <td><span id="{{menu.id}}" name="acvtive" class="title">{{acvtive}}</span><span id="{{menu.id}}" name="acvtive" class="value"><input type="checkbox" style="width: 100%;display:none;" {{ch}}  class="inpcC" id="{{menu.id}}" name="acvtive"></span></td>
+                                       
+                                        <td><span id="{{menu.id}}" name="position" class="title">{{position}}</span><span id="{{menu.id}}" name="position" class="value">
+                                            
+                                            <select style="width: 100%;display:none;"  class="inpcV" id="{{menu.id}}" name="position">
+                                            <option {{sel}} value="l">Горизонтально</option>
+                                            <option {{sel}} value="r">Вертикально</option>
+                                        </select>
+                                            
+                                            </span></td>
+                                        <td><input type="button" id="{{menu.id}}"  class="delTr" value="Del"></td>
+                                        
+
+                                    </tr>
+        
+                                {% else %}
+                                    Нету
+
+                                {% endfor %}
+                
+                
+            </tbody>
+            
+            
+        </table>
+                                <img class="ajax-loader" src="{{ asset('bundles/bloggerblog/img/ajax-loader.gif') }}" alt="Отправка..." style="display:none;">
+        
+                                 <h3>Добавление</h3>
+                                <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Сыылка</th>
+                    <th>Активен</th>
+                    <th>Позиция</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th><input type="text" style="width: 100%;" class="" name="name"></th>
+                    <th><input  type="text" style="width: 100%;" name="href"></th>
+                    <th><input  type="checkbox" name="acvtive"></th>
+                    <th>
+                        <select name="position">
+                            <option value="l">Горизонтально</option>
+                            <option value="r">Вертикально</option>
+                        </select>
+                    </th>
+                </tr>
+                
+            </tbody>
+                                
+                                </table>
+        
+        
+        
+        
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Отправить" />
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/sidebar.html.twig #}
+
+<section class="section">
+    
+    <nav>
+                            <ul class="navigation">
+                                
+                                {% for menu in menus %}
+                                        
+                                         <li><a href="/app_dev.php/{{menu.href}}">{{menu.name}}</a></li>
+        
+                                {% else %}
+
+
+                                {% endfor %}
+                               
+                                
+                            </ul>
+                        </nav>
+    
+</section>
